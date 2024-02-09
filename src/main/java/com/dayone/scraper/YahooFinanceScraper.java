@@ -9,12 +9,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class YahooFinanceScraper implements Scraper{
 
     private static final String STATICS_URL =
@@ -60,7 +61,7 @@ public class YahooFinanceScraper implements Scraper{
                         .build());
 
             }
-            scrapResult.setDividendEntities(dividends);
+            scrapResult.setDividends(dividends);
         } catch (IOException e) {
             e.printStackTrace();
 

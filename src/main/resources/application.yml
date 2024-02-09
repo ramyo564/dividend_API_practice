@@ -2,7 +2,6 @@ spring:
   application:
     name: dayone-financial
 
-
   h2:
     console:
       enabled: true
