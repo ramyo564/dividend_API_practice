@@ -1,5 +1,6 @@
 package com.dayone;
 import com.dayone.model.Company;
+import com.dayone.scraper.Scraper;
 import com.dayone.scraper.YahooFinanceScraper;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -16,8 +17,9 @@ public class Application {
     public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
 
-        YahooFinanceScraper scraper = new YahooFinanceScraper();
-        var result = scraper.scrap(Company.builder().ticker("O").build());
+        Scraper scraper = new YahooFinanceScraper();
+        // var result = scraper.scrap(Company.builder().ticker("O").build());
+        var result = scraper.scrapCompanyByTicker("MMM");
         System.out.println(result);
 
     }
