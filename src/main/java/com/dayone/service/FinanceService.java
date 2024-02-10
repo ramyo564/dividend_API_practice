@@ -3,6 +3,7 @@ package com.dayone.service;
 import com.dayone.model.Company;
 import com.dayone.model.Dividend;
 import com.dayone.model.ScrapedResult;
+import com.dayone.model.constants.CacheKey;
 import com.dayone.persist.CompanyRepository;
 import com.dayone.persist.DividendRepository;
 import com.dayone.persist.entity.CompanyEntity;
@@ -28,7 +29,7 @@ public class FinanceService {
         -> 배당금도 많아야 한 달에 한 번 업데이트
       -> 배당금 정보는 캐싱으로 처리가 적
      */
-    @Cacheable(key = "#companyName", value = "finance")
+    @Cacheable(key = "#companyName", value = CacheKey.KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName){
 
         // 1. 회사명을 기준으로 회사 정보를 조회

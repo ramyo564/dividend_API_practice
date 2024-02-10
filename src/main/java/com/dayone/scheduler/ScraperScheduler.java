@@ -2,6 +2,7 @@ package com.dayone.scheduler;
 
 import com.dayone.model.Company;
 import com.dayone.model.ScrapedResult;
+import com.dayone.model.constants.CacheKey;
 import com.dayone.persist.CompanyRepository;
 import com.dayone.persist.DividendRepository;
 import com.dayone.persist.entity.CompanyEntity;
@@ -9,12 +10,15 @@ import com.dayone.persist.entity.DividendEntity;
 import com.dayone.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Slf4j
 @Component
+@EnableCaching
 @AllArgsConstructor
 public class ScraperScheduler {
 
@@ -22,6 +26,8 @@ public class ScraperScheduler {
     private final DividendRepository dividendRepository;
     private final Scraper yahooFinanceScraper;
 
+    // 스캐줄러가 돌아갈 때 캐싱비워주고 시작
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling(){
 
@@ -39,7 +45,7 @@ public class ScraperScheduler {
                             new Company(
                                     company.getTicker(),
                                     company.getTicker()));
-                            
+
             // 스크패핑한 배당금 정보 중 데이터베이스에 없는 값은 저장
             scrapedResult.getDividends().stream()
                     // map 으로 배당금 모델을 베당금 엔티티로 매핑
