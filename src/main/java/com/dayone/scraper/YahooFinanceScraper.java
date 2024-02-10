@@ -31,7 +31,7 @@ public class YahooFinanceScraper implements Scraper{
 
             long now = System.currentTimeMillis() / 1000; // 현재시간
             String url = String.format(STATICS_URL, company.getTicker(), START_TIME, now);
-            System.out.println(url);
+            // System.out.println(url);
             Connection connection = Jsoup.connect(url);
             Document document = connection.get();
             Elements parsingDivs =
