@@ -35,11 +35,11 @@ public class ScraperScheduler {
                             + company.getName());
 
             ScrapedResult scrapedResult =
-                    this.yahooFinanceScraper.scrap(Company.builder()
-                                    .name(company.getTicker())
-                                    .ticker(company.getTicker())
-                                    .build());
-
+                    this.yahooFinanceScraper.scrap(
+                            new Company(
+                                    company.getTicker(),
+                                    company.getTicker()));
+                            
             // 스크패핑한 배당금 정보 중 데이터베이스에 없는 값은 저장
             scrapedResult.getDividends().stream()
                     // map 으로 배당금 모델을 베당금 엔티티로 매핑
