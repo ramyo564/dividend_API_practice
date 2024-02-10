@@ -22,7 +22,7 @@ public class ScraperScheduler {
     private final DividendRepository dividendRepository;
     private final Scraper yahooFinanceScraper;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling(){
 
         // 저장된 회사 목록을 조회
@@ -31,7 +31,7 @@ public class ScraperScheduler {
         // 회사마다 배당금 정보를 새로 스크래핑
         for(var company : companies){
 
-            log.info("Scraping scheduler is started-> " 
+            log.info("Scraping scheduler is started-> "
                             + company.getName());
 
             ScrapedResult scrapedResult =
