@@ -15,19 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AutoController {
+public class AuthController {
 
     private final MemberService memberService;
     private final TokenProvider tokenProvider;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody Auth.SignUp requset){
+    public ResponseEntity<?> signup(@RequestBody Auth.SignUp request){
         // 회원가입을 위한 API
-        return null;
+        var result =
+                this.memberService.register(request);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody Auth.SignIn request){
+
         // 로그인을 위한 API
         var member =
                 this.memberService.authenticate(request);
@@ -35,7 +38,7 @@ public class AutoController {
                 this.tokenProvider.generateToken(
                         member.getUsername(),
                         member.getRoles());
-        
+
         return ResponseEntity.ok(token);
     }
 }
