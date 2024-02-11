@@ -1,9 +1,6 @@
-package com.dayone.model;
+package com.dayone.persist.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +12,13 @@ import javax.persistence.Id;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Builder
+@Entity(name = "MEMBER")
 @Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "MEMBER")
+
 public class MemberEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

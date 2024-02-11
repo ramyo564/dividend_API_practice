@@ -1,6 +1,6 @@
 package com.dayone.persist;
 
-import com.dayone.model.MemberEntity;
+import com.dayone.persist.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository
-        extends JpaRepository<MemberRepository, Long> {
+        extends JpaRepository<MemberEntity, Long> {
 
-    Optional<MemberEntity> findByUserName(String userName);
+    Optional<MemberEntity> findByUserName(String username);
 
-    boolean existsByUserName(String userName);
+    boolean existsByUserName(String username);
 }
