@@ -22,7 +22,7 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        return this.memberRepository.findByUserName(username)
+        return this.memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "couldn't find user -> " + username)
                 );
@@ -31,7 +31,7 @@ public class MemberService implements UserDetailsService {
 
     public MemberEntity register(Auth.SignUp member) {
         boolean exists =
-                this.memberRepository.existsByUserName(
+                this.memberRepository.existsByUsername(
                         member.getUsername());
 
         if (exists) {
@@ -47,7 +47,7 @@ public class MemberService implements UserDetailsService {
 
     public MemberEntity authenticate(Auth.SignIn member) {
         var user =
-                this.memberRepository.findByUserName(
+                this.memberRepository.findByUsername(
                                 member.getUsername())
                         .orElseThrow(() -> new RuntimeException(
                                 "존재하지 않는 ID 입니다."));
