@@ -1,5 +1,6 @@
 package com.dayone.service;
 
+import com.dayone.exception.impl.company.NoCompanyException;
 import com.dayone.model.Company;
 import com.dayone.model.Dividend;
 import com.dayone.model.ScrapedResult;
@@ -36,7 +37,7 @@ public class FinanceService {
         CompanyEntity company =
                 this.companyRepository.findByName(companyName)
                 .orElseThrow(()->
-                        new RuntimeException("존재하지 않는 회사명입니다."));
+                        new NoCompanyException());
         // orElseThrow() -> 회사명이 없을 경우 null 이 생길 수 있어서 사용
         //-> 값이 있을 경우 Optional 을 벗겨 주고 그렇지 않을 경우 null 처리를 해줌
 

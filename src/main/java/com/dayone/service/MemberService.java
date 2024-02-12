@@ -1,5 +1,8 @@
 package com.dayone.service;
 
+import com.dayone.exception.impl.auth.AlreadyExistUserException;
+import com.dayone.exception.impl.auth.NoUserException;
+import com.dayone.exception.impl.auth.WrongPasswordException;
 import com.dayone.model.Auth;
 import com.dayone.persist.MemberRepository;
 import com.dayone.persist.entity.MemberEntity;
@@ -35,7 +38,7 @@ public class MemberService implements UserDetailsService {
                         member.getUsername());
 
         if (exists) {
-            throw new RuntimeException("이미 사용중인 아이디 입니다.");
+            throw new AlreadyExistUserException();
         }
 
         member.setPassword(
@@ -49,11 +52,10 @@ public class MemberService implements UserDetailsService {
         var user =
                 this.memberRepository.findByUsername(
                                 member.getUsername())
-                        .orElseThrow(() -> new RuntimeException(
-                                "존재하지 않는 ID 입니다."));
+                        .orElseThrow(NoUserException::new);
         if (!this.passwordEncoder.matches(member.getPassword(),
                 user.getPassword())){
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new WrongPasswordException();
         }
 
         return user;
