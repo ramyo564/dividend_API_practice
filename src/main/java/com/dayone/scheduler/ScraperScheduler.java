@@ -61,6 +61,8 @@ public class ScraperScheduler {
                         // 존재하지 않는 경우에만 데이터 삽입
                         if (!exists){
                             this.dividendRepository.save(e);
+                            log.info("insert new dividend ->" + e.toString());
+
                         }
                     });
 
@@ -69,6 +71,7 @@ public class ScraperScheduler {
                 Thread.sleep(3000); //-> 3초
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                log.warn("스크래핑 실패 -> " + e.toString() );
                 throw new RuntimeException(e);
             }
         }
