@@ -19,4 +19,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
             String s, Pageable pageable);
     // ignoreCase 는 대소문자를 안가리게 해줌
     // StrartingWith은 쿼리문에서 like 와 같은 기능을 함
+
+    Optional<CompanyEntity> findByTicker(String ticker);
 }
